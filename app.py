@@ -1,20 +1,30 @@
-print("===================================")
-print("   Senior Citizen Helper")
-print("===================================")
-print("1. Emergency SOS")
-print("2. Medicine Reminder")
-print("3. Voice Assistant")
-print("4. Exit")
+import streamlit as st
 
-choice = input("Enter your choice: ")
+st.set_page_config(page_title="Senior Citizen Helper", page_icon="👴")
 
-if choice == "1":
-    print("Emergency SOS Activated!")
-elif choice == "2":
-    print("Medicine Reminder Started!")
-elif choice == "3":
-    print("Voice Assistant Started!")
-elif choice == "4":
-    print("Thank You!")
+st.title("👴 Senior Citizen Helper")
+st.write("Periyavangalukku uthavum app")
+
+menu = st.sidebar.selectbox("Enna venum?", 
+    ["Emergency SOS", "Medicine Reminder", "Voice Assistant"])
+
+if menu == "Emergency SOS":
+    st.header("🚨 Emergency SOS")
+    st.error("Emergency na button-a amukku!")
+    if st.button("📞 SOS SEND", use_container_width=True):
+        st.success("SOS Anuppiyachu!")
+        st.balloons()
+    st.write("Contact: 108")
+
+elif menu == "Medicine Reminder":
+    st.header("💊 Medicine Reminder")
+    med = st.text_input("Medicine peru?")
+    t = st.time_input("Time?")
+    if st.button("Reminder Vaikku"):
+        st.success(f"{med} ku {t} mani ku reminder!")
+
 else:
-    print("Invalid Choice!")
+    st.header("🎤 Voice Assistant")
+    q = st.text_input("Enna help venum?")
+    if q:
+        st.success(f"Puriyuthu: {q}")
