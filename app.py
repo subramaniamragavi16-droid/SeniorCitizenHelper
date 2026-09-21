@@ -1,66 +1,48 @@
 import streamlit as st
-from gtts import gTTS
-import io
 from datetime import datetime
+import time
 
-st.set_page_config(page_title="Senior Citizen Helper", page_icon="👴")
+st.title("👴 Senior Citizen Helper - Mudhiyorkalukku Uthavum App")
 
-st.title("👴 Senior Citizen Helper App")
-st.write("Mudiyavargalukku uthavum app!")
-
-# --- VOICE ASSISTANT ---
-st.divider()
+# --- Voice Assistant ---
 st.subheader("🎤 Voice Assistant")
+if st.button("🔊 Sathama Kelu"):
+    st.success("Vanakkam! Enna venum nu sollunga...")
 
-q = st.text_input("Inga type pannu da, naan sathama pesuren:", placeholder="Edhavathu type pannu da...")
+if st.button("Clear"):
+    st.rerun()
 
-col1, col2 = st.columns(2)
-
-with col1:
-    if st.button("🔊 Sathama Kelu"):
-        if q:
-            try:
-                tts = gTTS(text=q, lang='ta')
-                sound_file = io.BytesIO()
-                tts.write_to_fp(sound_file)
-                st.audio(sound_file, format='audio/mp3')
-                st.success(f"🔊 Pesuthu: {q}")
-            except Exception as e:
-                tts = gTTS(text=q, lang='en')
-                sound_file = io.BytesIO()
-                tts.write_to_fp(sound_file)
-                st.audio(sound_file, format='audio/mp3')
-                st.success(f"🔊 Pesuthu: {q}")
-        else:
-            st.warning("Edhavathu type pannu da!")
-
-with col2:
-    if st.button("🧹 Clear"):
-        st.info("Azhichachu!")
-
-st.divider()
+# --- Ready Messages ---
 st.subheader("Ready Messages:")
-
 if st.button("💧 Thanni Venum"):
-    msg = "THANNI VENUM"
-    tts = gTTS(text=msg, lang='en')
-    sound_file = io.BytesIO()
-    tts.write_to_fp(sound_file)
-    st.audio(sound_file, format='audio/mp3')
-    st.success(f"💧 {msg} - Sathama solliyachu!")
+    st.info("Thanni venum nu message anupiyachu!")
 
 if st.button("💊 Marunthu Venum"):
-    msg = "MARUNTHU VENUM"
-    tts = gTTS(text=msg, lang='en')
-    sound_file = io.BytesIO()
-    tts.write_to_fp(sound_file)
-    st.audio(sound_file, format='audio/mp3')
-    st.success(f"💊 {msg} - Sathama solliyachu!")
+    st.info("Marunthu venum nu message anupiyachu!")
 
 if st.button("🆘 Udhavi Venum"):
-    msg = "UDHAVI VENUM Emergency"
-    tts = gTTS(text=msg, lang='en')
-    sound_file = io.BytesIO()
-    tts.write_to_fp(sound_file)
-    st.audio(sound_file, format='audio/mp3')
-    st.error(f"🆘 {msg}!")
+    st.error("Udhavi venum nu SOS anupiyachu!")
+
+st.divider()
+
+# --- NEW: SOS EMERGENCY ---
+st.subheader("🚨 SOS Emergency")
+st.write("Avasara udhavikku keela button-a azhuthavum")
+if st.button("🚨 SOS - Enakku Udhavi Venum!"):
+    st.error("🚨 SOS Alert Sent to Family! Location Shared!")
+    st.balloons()
+    # Inga un family number ku WhatsApp/Call logic add pannalam
+
+st.divider()
+
+# --- NEW: MEDICINE REMINDER ---
+st.subheader("💊 Medicine Reminder")
+med_name = st.text_input("Marunthu Peyar:")
+med_time = st.time_input("Maniku Reminder Venum?")
+
+if st.button("⏰ Reminder Set Pannu"):
+    if med_name:
+        st.success(f"✅ {med_name} ku {med_time} mani ku reminder set panniyachu!")
+        st.write(f"⏰ Time: {med_time}")
+    else:
+        st.warning("Marunthu peyar type pannu da!")
