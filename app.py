@@ -3,7 +3,6 @@ from datetime import datetime
 import time
 from weather import show_weather
 from sos import show_sos
-show_sos()
 from gtts import gTTS
 import io
 
