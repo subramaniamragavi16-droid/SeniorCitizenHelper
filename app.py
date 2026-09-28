@@ -42,7 +42,6 @@ if st.button("💊 Marunthu Venum"):
 # --- Weather ---
 st.divider()
 show_weather()
-if st.button("🆘 Udhavi Venum"):
-    st.error(...)
-    pesu(...)
+st.divider()
+show_sos()
 
