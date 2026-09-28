@@ -3,6 +3,7 @@ from datetime import datetime
 import time
 from weather import show_weather
 from sos import show_sos
+from reminder import show_reminder
 from gtts import gTTS
 import io
 
@@ -41,6 +42,7 @@ if st.button("💊 Marunthu Venum"):
 
 # --- Weather ---
 st.divider()
+show_reminder()
 show_weather()
 st.divider()
 show_sos()
