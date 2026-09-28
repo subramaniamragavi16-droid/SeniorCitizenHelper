@@ -1,5 +1,5 @@
 import streamlit as st
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 
 def show_reminder():
@@ -11,15 +11,16 @@ def show_reminder():
     if st.button("⏰ Reminder Set Pannu"):
         st.session_state['rem_time'] = reminder_time.strftime("%H:%M")
         st.session_state['medicine'] = medicine
-        st.success(f"Reminder Set! {reminder_time.strftime('%H:%M')} ku {medicine}")
+        st.success(f"Reminder Set! {reminder_time.strftime('%I:%M %p')} ku {medicine} - IST")
 
-    # Check time
+    # Check time - IST
     if 'rem_time' in st.session_state:
-        current = datetime.now().strftime("%H:%M")
+        ist_now = datetime.utcnow() + timedelta(hours=5, minutes=30)
+        current = ist_now.strftime("%H:%M")
         if current == st.session_state['rem_time']:
             st.error(f"💊 Time to take medicine! Medicine: {st.session_state['medicine']}")
             st.balloons()
-            # Speak
+            # Speak in Tamil
             try:
                 from gtts import gTTS
                 import io
@@ -29,5 +30,7 @@ def show_reminder():
                 st.audio(audio, autoplay=True)
             except:
                 pass
-    
-    st.info(f"Current Time: {datetime.now().strftime('%I:%M %p')}")
+        st.info(f"Current Time: {ist_now.strftime('%I:%M %p')} (IST)")
+    else:
+        ist_now = datetime.utcnow() + timedelta(hours=5, minutes=30)
+        st.info(f"Current Time: {ist_now.strftime('%I:%M %p')} (IST)")
