@@ -2,7 +2,17 @@ import streamlit as st
 from datetime import datetime
 import time
 from weather import show_weather
+from gtts import gTTS
+import io
 
+def pesu(text):
+    try:
+        tts = gTTS(text=text, lang='ta')
+        file = io.BytesIO()
+        tts.write_to_fp(file)
+        st.audio(file, autoplay=True)
+    except:
+        st.write(text)
 st.title("👴 Senior Citizen Helper - Mudhiyorkalukku Uthavum App")
 
 # --- Voice Assistant ---
