@@ -20,6 +20,8 @@ if st.button("💧 Thanni Venum"):
 
 if st.button("💊 Marunthu Venum"):
     st.info("Marunthu venum nu message anupiyachu!")
+# --- Weather ---
+show_weather()
 
 if st.button("🆘 Udhavi Venum"):
     st.error("Udhavi venum nu SOS anupiyachu!")
