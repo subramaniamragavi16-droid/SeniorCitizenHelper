@@ -1,57 +1,51 @@
+import streamlit as st
 import speech_recognition as sr
-import pyttsx3
-import datetime
-import os
+import io
+from datetime import datetime
 
-engine = pyttsx3.init()
-r = sr.Recognizer()
 
-with sr.Microphone() as source:
-    print("Speak now...")
-    audio = r.listen(source)
+def show_voice_assistant():
 
-try:
-    text = r.recognize_google(audio).lower()
-    print("You said:", text)
+    st.subheader("🎤 Voice Assistant")
 
-    if text == "hello":
-        print("Hello! How can I help you?")
-        engine.say("Hello! How can I help you?")
+    audio = st.audio_input("🎙️ Speak Now")
 
-    elif text == "time":
-        current_time = datetime.datetime.now().strftime("%I:%M %p")
-        print("Current Time:", current_time)
-        engine.say("Current time is " + current_time)
+    if audio is not None:
 
-    elif text == "date":
-        current_date = datetime.datetime.now().strftime("%d-%m-%Y")
-        print("Today's Date:", current_date)
-        engine.say("Today's date is " + current_date)
+        recognizer = sr.Recognizer()
 
-    elif text == "medicine":
-        print("Opening Medicine Reminder")
-        engine.say("Opening Medicine Reminder")
-        os.system("python reminder.py")
+        try:
+            audio_bytes = io.BytesIO(audio.getvalue())
 
-    elif text == "weather":
-        print("Opening Weather Report")
-        engine.say("Opening Weather Report")
-        os.system("python weather.py")
+            with sr.AudioFile(audio_bytes) as source:
+                recorded_audio = recognizer.record(source)
 
-    elif text == "sos":
-        print("Emergency SOS Activated")
-        engine.say("Emergency SOS Activated")
-        os.system("python sos.py")
+            text = recognizer.recognize_google(recorded_audio).lower()
 
-    elif text == "exit":
-        print("Good Bye!")
-        engine.say("Good Bye")
+            st.success("You said: " + text)
 
-    else:
-        print("Command Not Found!")
-        engine.say("Sorry, I don't understand.")
+            if "hello" in text:
+                st.info("Hello! How can I help you?")
 
-    engine.runAndWait()
+            elif "time" in text:
+                current_time = datetime.now().strftime("%I:%M %p")
+                st.info("Current Time: " + current_time)
 
-except Exception:
-    print("Could not understand your voice.")
+            elif "date" in text:
+                current_date = datetime.now().strftime("%d-%m-%Y")
+                st.info("Today's Date: " + current_date)
+
+            elif "medicine" in text or "marunthu" in text:
+                st.info("💊 Medicine Reminder")
+
+            elif "weather" in text:
+                st.info("🌤️ Weather Report")
+
+            elif "sos" in text or "emergency" in text:
+                st.error("🚨 Emergency SOS Activated!")
+
+            else:
+                st.warning("Sorry, I don't understand that command.")
+
+        except Exception as e:
+            st.error("Could not understand your voice.")
