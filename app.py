@@ -8,7 +8,7 @@ from gtts import gTTS
 import io
 
 from login import login
-
+from voice import show_voice_assistant
 st.set_page_config(page_title="Senior Citizen Helper")
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -28,14 +28,8 @@ def pesu(text):
         st.write(text)
 
 # --- Voice Assistant ---
-st.subheader("🎤 Voice Assistant")
-if st.button("🎙️ Sathama Kelu"):
-    msg = "Vanakkam! Enna venum nu sollunga"
-    st.success(msg + "...")
-    pesu(msg)
-
-if st.button("Clear"):
-    st.rerun()
+# --- Voice Assistant ---
+show_voice_assistant()
 
 # --- Ready Messages ---
 st.subheader("Ready Messages:")
