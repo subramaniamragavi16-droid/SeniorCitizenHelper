@@ -7,8 +7,15 @@ from reminder import show_reminder
 from gtts import gTTS
 import io
 
-st.set_page_config(page_title="Senior Citizen Helper")
+from login import login
 
+st.set_page_config(page_title="Senior Citizen Helper")
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    login()
+    st.stop()
 st.title("👴 Senior Citizen Helper App")
 
 def pesu(text):
