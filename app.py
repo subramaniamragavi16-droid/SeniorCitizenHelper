@@ -27,10 +27,6 @@ def pesu(text):
     except:
         st.write(text)
 
-# --- Voice Assistant ---
-# --- Voice Assistant ---
-show_voice_assistant()
-
 # --- Ready Messages ---
 st.subheader("Ready Messages:")
 if st.button("💧 Thanni Venum"):
