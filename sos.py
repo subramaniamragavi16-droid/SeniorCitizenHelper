@@ -13,20 +13,27 @@ def show_sos():
 
     if st.button("🚨 SOS Alert", type="primary", use_container_width=True):
 
+        # Emergency Alert
         st.error("🚨 EMERGENCY SOS ACTIVATED!")
 
+        # Balloons
+        st.balloons()
+
+        # Family Member 1
         if name1 and phone1:
             st.markdown(
                 f"👤 **{name1}** - "
                 f"[📞 Call {phone1}](tel:{phone1})"
             )
 
+        # Family Member 2
         if name2 and phone2:
             st.markdown(
                 f"👤 **{name2}** - "
                 f"[📞 Call {phone2}](tel:{phone2})"
             )
 
+        # Time
         current_time = datetime.now().strftime(
             "%d-%m-%Y %I:%M %p"
         )
