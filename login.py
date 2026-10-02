@@ -9,7 +9,7 @@ def login():
 
     if st.button("Login"):
 
-        if username == "admin" and password == "1234":
+        if username == "hello" and password == "1234":
             st.session_state.logged_in = True
             st.success("Login Successful!")
             st.rerun()
