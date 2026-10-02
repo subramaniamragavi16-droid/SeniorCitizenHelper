@@ -17,7 +17,13 @@ if not st.session_state.logged_in:
     login()
     st.stop()
 st.title("👴 Senior Citizen Helper App")
+st.title("👴 Senior Citizen Helper App")
 
+# Voice Assistant
+show_voice_assistant()
+
+# Ready Messages
+st.subheader("Ready Messages:")
 def pesu(text):
     try:
         tts = gTTS(text=text, lang='ta', slow=False)
