@@ -19,6 +19,21 @@ def show_voice_assistant():
 
     st.subheader("🎤 Voice Assistant")
 
+    st.write("### 🎙️ Available Voice Commands")
+
+    st.write("👋 Hello / Hi")
+    st.write("🕐 Time")
+    st.write("📅 Date")
+    st.write("💊 Medicine / Marunthu")
+    st.write("🌤️ Weather")
+    st.write("🚨 SOS / Emergency")
+    st.write("🆘 Help")
+    st.write("👋 Exit / Bye")
+    st.write("💧 Water / Thanni")
+    st.write("🍚 Food / Saapadu")
+    st.write("📞 Call Family")
+    st.write("📅 Appointment")
+
     audio = st.audio_input("🎙️ Speak Now")
 
     if audio is not None:
@@ -39,11 +54,11 @@ def show_voice_assistant():
             st.success("You said: " + text)
 
             # HELLO
-            if "hello" in text or "hi" in text:
+            if "hello" in text or "hi" in text or "vanakkam" in text:
                 reply = "Hello! How can I help you?"
 
             # TIME
-            elif "time" in text:
+            elif "time" in text or "neram" in text:
                 current_time = datetime.now().strftime("%I:%M %p")
                 reply = "The current time is " + current_time
 
@@ -54,15 +69,35 @@ def show_voice_assistant():
 
             # MEDICINE
             elif "medicine" in text or "marunthu" in text:
-                reply = "Opening medicine reminder."
+                reply = "Medicine reminder is ready."
 
             # WEATHER
             elif "weather" in text:
-                reply = "Opening weather report."
+                reply = "Weather information is ready."
 
             # SOS
             elif "sos" in text or "emergency" in text:
                 reply = "Emergency SOS activated. Please contact your family member."
+
+            # HELP
+            elif "help" in text:
+                reply = "I am here to help you. You can ask for medicine, weather, time, date or emergency help."
+
+            # WATER
+            elif "water" in text or "thanni" in text:
+                reply = "Water request has been noted."
+
+            # FOOD
+            elif "food" in text or "saapadu" in text:
+                reply = "Food request has been noted."
+
+            # FAMILY
+            elif "call family" in text or "family" in text:
+                reply = "Family call request has been noted."
+
+            # APPOINTMENT
+            elif "appointment" in text:
+                reply = "Your appointment reminder is ready."
 
             # EXIT
             elif "exit" in text or "bye" in text:
@@ -70,9 +105,10 @@ def show_voice_assistant():
 
             # UNKNOWN
             else:
-                reply = "Sorry, I don't understand your command."
+                reply = "Sorry, I don't understand that command."
 
             st.info("🔊 " + reply)
+
             speak(reply)
 
         except Exception:
